@@ -17,4 +17,4 @@
       register: dateTimeStr
 
     - debug:
-        msg: "time update --> {{ dateTimeStr }}"
+        msg: "time update --> {{ dateTimeStr }} --> {{ dateTimeStr.stdout }}"
