@@ -1,0 +1,20 @@
+---
+- name: use some module
+  hosts: ansible_servers
+  gather_facts: false
+  tasks:
+    - name: use shell module
+      shell: date +"%F %T" | cat >/tmp/date.log
+
+    - name: install ntpdate
+      shell: yum -y install ntpdate
+
+    - name: time update
+      shell: ntpdate -u  pool.ntp.org
+
+    - name: time update
+      shell: date +"%F %T"
+      register: dateTimeStr
+
+    - debug:
+        msg: "time update --> {{ dateTimeStr }}"
