@@ -1,20 +1,13 @@
 ---
-- name: use some module
+- name: elasticsearch install
   hosts: ansible_servers
   gather_facts: false
   tasks:
-    - name: use shell module
-      shell: date +"%F %T" | cat >/tmp/date.log
-
-    - name: install ntpdate
-      shell: yum -y install ntpdate
-
-    - name: time update
-      shell: ntpdate -u  pool.ntp.org
-
-    - name: time update
-      shell: date +"%F %T"
-      register: dateTimeStr
+    - name: install es
+      shell: mkdir  /usr/local/elasticsearch-cluster && cd /tmp && tar zxvf elasticsearch-7.17.9-linux-x86_64.tar.gz  -C /usr/local/elasticsearch-cluster &&
+      cd /usr/local/elasticsearch-cluster && mv elasticsearch-7.17.9 elasticsearch-a && mkdir -p /usr/local/elasticsearch-cluster/elasticsearch-a/data &&
+      mkdir  -p /usr/local/elasticsearch-cluster/elasticsearch-a/logs
+      register: installResult
 
     - debug:
-        msg: "time update --> {{ dateTimeStr }} --> {{ dateTimeStr.stdout }}"
+        msg: "time update --> {{ installResult }}"
