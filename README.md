@@ -7,3 +7,7 @@
 - 调用其他脚本解释器
 ## 使用第三方库处理
 cat IpInfo.jso | jq '.data.ip'
+
+
+## 每天一个Linux 命令—— curl 命令 
+https://juejin.cn/post/6908628273123557389
