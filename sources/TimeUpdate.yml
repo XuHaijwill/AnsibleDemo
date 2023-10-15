@@ -1,13 +1,17 @@
 ---
-- name: elasticsearch install
-  hosts: ansible_servers
+- name: Time Update
+  hosts: all
   gather_facts: false
   tasks:
-    - name: install es
-      shell: mkdir  /usr/local/elasticsearch-cluster && cd /tmp && tar zxvf elasticsearch-7.17.9-linux-x86_64.tar.gz  -C /usr/local/elasticsearch-cluster &&
-      cd /usr/local/elasticsearch-cluster && mv elasticsearch-7.17.9 elasticsearch-a && mkdir -p /usr/local/elasticsearch-cluster/elasticsearch-a/data &&
-      mkdir  -p /usr/local/elasticsearch-cluster/elasticsearch-a/logs
+    - name: install ntpdate
+      shell: yum install -y ntpdate
       register: installResult
 
+    - name: update date from ntp1.aliyun.com
+      shell: ntpdate ntp1.aliyun.com
+      register: ntpdateResult
+
     - debug:
-        msg: "time update --> {{ installResult }}"
+        msg:
+        - "time update --> {{ installResult }}"
+        - "ntpdateResult --> {{ ntpdateResult }}"
