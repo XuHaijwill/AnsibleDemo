@@ -1,5 +1,7 @@
 ---
 - name: MQ Install
+  # use the parameter to set hosts,e.g. ansible-playbook MQ_Install.yml -e 'env_host_list=192.168.146.131'
+  hosts: '{{ env_host_list }}'
   gather_facts: false
   tasks:
 #    - name: /etc/hosts init
