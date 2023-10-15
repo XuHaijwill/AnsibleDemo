@@ -1,0 +1,14 @@
+---
+- name: MQ Install
+  gather_facts: false
+  tasks:
+#    - name: /etc/hosts init
+#      shell: echo -e '192.168.146.129 work1\n192.168.146.130 work2\n192.168.146.131 work3' >> /etc/hosts
+
+    - name: cluster init
+      shell: rabbitmqctl stop_app && rabbitmqctl join_cluster --ram rabbit@worker1
+      register: clusterAddResult
+
+    - debug:
+        msg:
+          - "clusterAddResult --> {{ clusterAddResult }}"
