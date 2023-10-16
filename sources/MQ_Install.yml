@@ -12,7 +12,7 @@
       register: stopMQResult
 
     - name: mq join_cluster
-      shell: rabbitmqctl join_cluster --ram rabbit@worker1
+      shell: rabbitmqctl join_cluster --ram rabbit@work1
       register: joinclusterResult
 
     - debug:
