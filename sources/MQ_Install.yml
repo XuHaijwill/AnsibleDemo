@@ -1,16 +1,21 @@
 ---
 - name: MQ Install
-  # use the parameter to set hosts,e.g. ansible-playbook MQ_Install.yml -e 'env_host_list=192.168.146.131'
+  # use the parameter to set hosts,e.g. ansible-playbook /mnt/ansible/AnsibleDemo/sources/MQ_Install.yml -e 'env_host_list=192.168.146.131'
   hosts: '{{ env_host_list }}'
   gather_facts: false
   tasks:
 #    - name: /etc/hosts init
 #      shell: echo -e '192.168.146.129 work1\n192.168.146.130 work2\n192.168.146.131 work3' >> /etc/hosts
 
-    - name: cluster init
-      shell: rabbitmqctl stop_app && rabbitmqctl join_cluster --ram rabbit@worker1
-      register: clusterAddResult
+    - name: stop mq
+      shell: rabbitmqctl stop_app
+      register: stopMQResult
+
+    - name: mq join_cluster
+      shell: rabbitmqctl join_cluster --ram rabbit@worker1
+      register: joinclusterResult
 
     - debug:
         msg:
-          - "clusterAddResult --> {{ clusterAddResult }}"
+          - "stopMQResult --> {{ stopMQResult }}"
+          - "joinclusterResult --> {{ joinclusterResult }}"
